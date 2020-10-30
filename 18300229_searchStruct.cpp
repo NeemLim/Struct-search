@@ -101,68 +101,67 @@ void convertResultC(void* rawData) //Casts void* to Coordinate type.
 	{
 		Coordinate convertData;
 		convertData = *(Coordinate*)rawData;
-		cout << ">Value of Y = " << convertData.y; //Pene + bola
+		cout << ">Value of Y = " << convertData.y;
 	}
-}
 
-int main()
-{
-	List listStruct; //Instantiates structure.
-	do
+	int main()
 	{
-		system("cls");
-		char choice = 0;
-		int dataValue = 0;
-		Coordinate* inputCoord = new Coordinate;
-		void* result;
-		cout << "========Strucuture searching algorithm=========" << endl;
-
-		do //Loop to choose an operation.
+		List listStruct; //Instantiates structure.
+		do
 		{
-			cout << endl << "Select the activity" << endl;
-			cout << "[1] Create and fill structures." << endl;
-			cout << "[2] Find Y value in structures." << endl;
-			cout << "[3] Exit program." << endl;
-			cout << ">Answer: "; choice = _getch();
 			system("cls");
-		} while (choice < 49 or choice > 51); //ASCII from 1 to 3.
+			char choice = 0;
+			int dataValue = 0;
+			Coordinate* inputCoord = new Coordinate;
+			void* result;
+			cout << "========Strucuture searching algorithm=========" << endl;
 
-		switch (choice)
-		{ //Alternates between options.
-		case '1':
-			cout << endl << "*** Press <Left Control Key> on your last the data input to finish filling. ***" << endl;
-			cout << "*** Data input will automatically stop after 100 elements." << endl << endl;
-			cout << "Fill in the structures: " << endl;
-
-			for (int i = 0; (GetAsyncKeyState(VK_LCONTROL)) == false and i < 100; i++)  //Fills the an aux strucutre using pointers;
+			do //Loop to choose an operation.
 			{
-				if ((GetAsyncKeyState(VK_LCONTROL)) == false)
+				cout << endl << "Select the activity" << endl;
+				cout << "[1] Create and fill structures." << endl;
+				cout << "[2] Find Y value in structures." << endl;
+				cout << "[3] Exit program." << endl;
+				cout << ">Answer: "; choice = _getch();
+				system("cls");
+			} while (choice < 49 or choice > 51); //ASCII from 1 to 3.
+
+			switch (choice)
+			{ //Alternates between options.
+			case '1':
+				cout << endl << "*** Press <Left Control Key> on your last the data input to finish filling. ***" << endl;
+				cout << "*** Data input will automatically stop after 100 elements." << endl << endl;
+				cout << "Fill in the structures: " << endl;
+
+				for (int i = 0; (GetAsyncKeyState(VK_LCONTROL)) == false and i < 100; i++)  //Fills the an aux strucutre using pointers;
 				{
-					inputCoord = new Coordinate; //Gives inputCoord a new memory address;
-					cout << endl;
-					cout << "Struct #" << listStruct.elementCount << endl;
-					cout << "Value in X: "; cin >> inputCoord->x;
-					cout << "Value in Y: "; cin >> inputCoord->y;
-					listStruct.addData(inputCoord);
+					if ((GetAsyncKeyState(VK_LCONTROL)) == false)
+					{
+						inputCoord = new Coordinate; //Gives inputCoord a new memory address;
+						cout << endl;
+						cout << "Struct #" << listStruct.elementCount << endl;
+						cout << "Value in X: "; cin >> inputCoord->x;
+						cout << "Value in Y: "; cin >> inputCoord->y;
+						listStruct.addData(inputCoord);
+					}
+					GetAsyncKeyState; //Gets the current pressed key from the user.
 				}
-				GetAsyncKeyState; //Gets the current pressed key from the user.
+				break;
+
+			case '2': //Finds and converts result.
+				cout << "Input the value of X to get the value of Y." << endl;
+				cout << "-Value of X = ";  cin >> dataValue;
+				result = listStruct.findObject(&dataValue, criteriaCoordinate);
+				convertResultC(result);
+				break;
+
+			case '3': //Exits program.
+				cout << endl << endl << "\nThank you for using this program.";
+				cout << endl;
+				return 0;
+				break;
 			}
-			break;
-
-		case '2': //Finds and converts result.
-			cout << "Input the value of X to get the value of Y." << endl;
-			cout << "-Value of X = ";  cin >> dataValue;
-			result = listStruct.findObject(&dataValue, criteriaCoordinate);
-			convertResultC(result);
-			break;
-
-		case '3': //Exits program.
-			cout << endl << endl << "\nThank you for using this program.";
-			cout << endl;
-			return 0;
-			break;
-		}
-		cout << endl << endl;
-		system("pause");
-	} while (1);
-}
+			cout << endl << endl;
+			system("pause");
+		} while (1);
+	}
